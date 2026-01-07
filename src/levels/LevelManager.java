@@ -13,9 +13,10 @@ public class LevelManager {
 
     // Holds all individual tile sprites sliced from the level atlas
     private BufferedImage[] levelSprite;
+    private Level levelOne;
+
 
     // Represents the current level data (tile layout)
-    private Level levelOne;
 
     public LevelManager(Game game){
         this.game = game;
@@ -72,5 +73,8 @@ public class LevelManager {
 
     // Update logic for the level (unused for now, added for future extensions)
     public void update(){
+    }
+    public Level getCurrentLevel(){
+        return levelOne;
     }
 }

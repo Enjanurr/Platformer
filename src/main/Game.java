@@ -60,13 +60,15 @@ public class Game implements Runnable {
 
     // Creates core game objects (player, level, etc.)
     private void initClasses() {
+        levelManager = new LevelManager(this);
         player = new Player(
                 200,
                 200,
                 (int) (64 * SCALE),
                 (int) (40 * SCALE)
         );
-        levelManager = new LevelManager(this);
+        player.loadLevelData(levelManager.getCurrentLevel().getLevelData());
+
     }
 
     // Starts the game loop in a separate thread
