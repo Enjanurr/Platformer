@@ -1,12 +1,11 @@
 package entities;
 
-import javax.imageio.ImageIO;
+import utils.LoadSave;
+
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
 
-import static utils.Constants.Direction.*;
 import static utils.Constants.PlayerConstants.*;
 
 public class Player extends  Entity{
@@ -18,8 +17,9 @@ public class Player extends  Entity{
     private boolean left, up, right, down;
     private float playerSpeed = 2.0f;
     private boolean moving = false, attacking = false;
-    public Player(float x, float y) {
-        super(x, y);
+
+    public Player(float x, float y, int width , int height) {
+        super(x, y, width , height);
         loadAnimation();
     }
     public void update(){
@@ -32,8 +32,8 @@ public class Player extends  Entity{
                 animations[playerAction][aniIndex],
                 (int) x,
                 (int) y,
-                256,
-                160,
+                height,
+                width,
                 null
         );
     }
@@ -94,12 +94,10 @@ public class Player extends  Entity{
     }
 
 
-
+   // load the animation of the player
     private void loadAnimation() {
-        InputStream is = getClass().getResourceAsStream("/player_sprites.png");
 
-        try {
-          BufferedImage  img = ImageIO.read(is);
+          BufferedImage  img = LoadSave.GetSpriteAtlas(LoadSave.PLAYER_ATLAS);
 
            animations = new BufferedImage[9][6];
             for (int j = 0; j < animations.length; j++) {          // animation row (action)
@@ -112,17 +110,10 @@ public class Player extends  Entity{
                     );
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
+
+    //  for the controls
     public boolean isDown() {
         return down;
     }
@@ -154,6 +145,7 @@ public class Player extends  Entity{
     public void setLeft(boolean left) {
         this.left = left;
     }
+
     // stabilizer so character wont bug if window is closed , see GameWindow class
     public void resetDirBooleans(){
         left = false;

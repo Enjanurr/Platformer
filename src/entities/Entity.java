@@ -2,9 +2,12 @@ package entities;
 
 public abstract class Entity {
      protected float x,y;
-    public Entity(float x, float y){
+     protected int height,  width;
+    public Entity(float x, float y , int height, int width){
         this.x = x;
         this.y = y;
+        this.height = height;
+        this.width = width;
     }
 
 }
